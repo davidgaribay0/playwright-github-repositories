@@ -38,7 +38,7 @@ test.describe.parallel('Github Test Suite', async () => {
         expect.soft(isSortedAlphabetically(await repositories.getNames()), "Sorted by alphabetical order").toBe(true)
     })
 
-    test('Select last respository in the list and verify https clone url', async ({ page }) => {
+    test('Select last respository in the list and verify https clone url', async () => {
         await repositories.sortBy('Name')
         const repositoryName = await repositories.selectLastRepository()
         const httpsCloneUrl = await repositoryPage.getHTTPSCloneUrl()
