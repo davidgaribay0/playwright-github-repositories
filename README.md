@@ -18,7 +18,9 @@
 ## Project structure
 - This repository follows the Page Object Model (POM) and utilizes playwright and typescript to create automation test cases.
 - The framework is data driven and most of the parameters are located the [github.data.ts file](data/github.data.ts), this helps avoid hardcoding test data into test specs for increased mantainability. 
-
+- All expects (assertions) are soft assertions since they are data assertions, this allows for the test to be marked as 'failed' in the event it fails, but allows the test to continue. As opposed to hard assertions which would mark the test as failed, but also terminate test execution.
+- All tests run in parallel, with a max of 4 concurrent workers per session. This can be configured in the [Playwright Configuration File](playwright.config.ts)
+- [playwright official documentation](https://playwright.dev/docs/intro)
 
 ## Example outputs
 
