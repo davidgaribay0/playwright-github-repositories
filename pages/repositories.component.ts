@@ -1,11 +1,12 @@
 import { Locator, Page } from '@playwright/test';
 
 export class RepositoriesComponent {
-    readonly page: Page;
-    readonly publicRepositories: Locator;
-    readonly searchInput: Locator;
-    readonly languageDropdownButton: Locator;
-    readonly sortDropdownButton: Locator;
+    readonly page: Page
+    readonly publicRepositories: Locator
+    readonly searchInput: Locator
+    readonly languageDropdownButton: Locator
+    readonly sortDropdownButton: Locator
+    readonly cardTitleXpath: string
 
     constructor(page: Page) {
         this.page = page;
@@ -13,6 +14,7 @@ export class RepositoriesComponent {
         this.searchInput = page.locator("#your-repos-filter")
         this.languageDropdownButton = page.getByRole('button', { name: 'Language' })
         this.sortDropdownButton = page.getByRole('button', { name: 'Sort' })
+        this.cardTitleXpath = `//*[@data-hovercard-type="repository"]`
     }
 
     async getRepositoriesCardsCount(): Promise<number> {
@@ -24,8 +26,8 @@ export class RepositoriesComponent {
     }
 
     async selectLastRepository(): Promise<string> {
-        const repositoryName = this.publicRepositories.last().locator('//*[@data-hovercard-type="repository"]').innerText()
-        await this.publicRepositories.last().locator('//*[@data-hovercard-type="repository"]').click()
+        const repositoryName = this.publicRepositories.last().locator(this.cardTitleXpath).innerText()
+        await this.publicRepositories.last().locator(this.cardTitleXpath).click()
         await this.page.waitForLoadState('networkidle')
         return repositoryName
     }
@@ -33,7 +35,7 @@ export class RepositoriesComponent {
     async getNames(): Promise<string[]> {
         const names: string[] = []
         for await (const card of await this.publicRepositories.all()) {
-            names.push(await card.locator('//*[@data-hovercard-type="repository"]').innerText())
+            names.push(await card.locator(this.cardTitleXpath).innerText())
         }
         return names
     }

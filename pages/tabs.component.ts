@@ -1,12 +1,12 @@
 import { Locator, Page } from '@playwright/test';
 
 export class TabsComponent {
-    readonly page: Page;
-    readonly repositoriesLink: Locator;
-    readonly repositoriesCount: Locator;
+    readonly page: Page
+    readonly repositoriesLink: Locator
+    readonly repositoriesCount: Locator
 
     constructor(page: Page) {
-        this.page = page;
+        this.page = page
         this.repositoriesLink = page.locator('//*[@data-tab-item="org-header-repositories-tab"]')
         this.repositoriesCount = this.repositoriesLink.locator('//*[@title="Not available"]')
     }
