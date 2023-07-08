@@ -33,7 +33,7 @@ test.describe.parallel('Github Test Suite', async () => {
         expect.soft(repositoriesCount, "Filtered repository counts matches expected value").toEqual(data.filteredRepositoryCount)
     })
 
-    test('Sorted repositories alphabetically', async () => {
+    test('Verify sorted repositories alphabetically', async () => {
         await repositories.sortBy(data.sortBy)
         const repositoryNames: string[] = await repositories.getNames()
         expect.soft(isSortedAlphabetically(repositoryNames), "Sorted by alphabetical order").toBe(true)
