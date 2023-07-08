@@ -26,6 +26,7 @@ export class RepositoriesComponent {
     async selectLastRepository() {
         const repositoryName = this.publicRepositories.last().locator('//*[@data-hovercard-type="repository"]').innerText()
         await this.publicRepositories.last().locator('//*[@data-hovercard-type="repository"]').click()
+        await this.page.waitForLoadState('networkidle')
         return repositoryName
     }
 
