@@ -26,6 +26,13 @@ test.describe.parallel('Github Test Suite', async () => {
         expect.soft(repoTabCount, "Repository counts matches expected value").toEqual(data.repositoryCount)
     })
 
+
+    test('Verify filtered (Typescript) repositories count equals expected amount', async () => {
+        await repositories.filterByLanguage('Typescript')
+        const repositoriesCount = await repositories.getRepositoriesCardsCount()
+        expect.soft(repositoriesCount, "Filtered repository counts matches expected value").toEqual(data.filteredRepositoryCount)
+    })
+
 })
 
 
