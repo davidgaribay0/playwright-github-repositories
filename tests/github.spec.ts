@@ -27,19 +27,19 @@ test.describe.parallel('Github Test Suite', async () => {
         expect.soft(repoTabCount, "Repository counts matches expected value").toEqual(data.repositoryCount)
     })
 
-    test('Verify filtered (Typescript) repositories count equals expected amount', async () => {
-        await repositories.filterByLanguage('Typescript')
+    test(`Verify filtered ${data.filterLanguage} repositories count equals expected amount`, async () => {
+        await repositories.filterByLanguage(data.filterLanguage)
         const repositoriesCount = await repositories.getRepositoriesCardsCount()
         expect.soft(repositoriesCount, "Filtered repository counts matches expected value").toEqual(data.filteredRepositoryCount)
     })
 
     test('Sorted repositories alphabetically', async () => {
-        await repositories.sortBy('Name')
+        await repositories.sortBy(data.sortBy)
         expect.soft(isSortedAlphabetically(await repositories.getNames()), "Sorted by alphabetical order").toBe(true)
     })
 
     test('Select last respository in the list and verify https clone url', async () => {
-        await repositories.sortBy('Name')
+        await repositories.sortBy(data.sortBy)
         const repositoryName = await repositories.selectLastRepository()
         const httpsCloneUrl = await repositoryPage.getHTTPSCloneUrl()
         expect.soft(httpsCloneUrl.includes(repositoryName), "HTTPS clone link matches repository clicked on").toBe(true)
