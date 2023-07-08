@@ -3,6 +3,7 @@ import { TabsComponent } from '../pages/tabs.component';
 import { RepositoriesComponent } from '../pages/repositories.component';
 import { RepositoryPage } from '../pages/repository.page';
 import { data } from '../data/github.data';
+import { isSortedAlphabetically } from '../utils/utils';
 
 test.describe.parallel('Github Test Suite', async () => {
     let tabs: TabsComponent
@@ -26,13 +27,15 @@ test.describe.parallel('Github Test Suite', async () => {
         expect.soft(repoTabCount, "Repository counts matches expected value").toEqual(data.repositoryCount)
     })
 
-
     test('Verify filtered (Typescript) repositories count equals expected amount', async () => {
         await repositories.filterByLanguage('Typescript')
         const repositoriesCount = await repositories.getRepositoriesCardsCount()
         expect.soft(repositoriesCount, "Filtered repository counts matches expected value").toEqual(data.filteredRepositoryCount)
     })
 
+    test('Sorted repositories alphabetically', async () => {
+        await repositories.sortBy('Name')
+        expect.soft(isSortedAlphabetically(await repositories.getNames()), "Sorted by alphabetical order").toBe(true)
+    })
+
 })
-
-
