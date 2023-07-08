@@ -11,7 +11,7 @@ export class TabsComponent {
         this.repositoriesCount = this.repositoriesLink.locator('//*[@title="Not available"]')
     }
 
-    async getNumberOfRepositories() {
+    async getNumberOfRepositories(): Promise<number> {
         await this.page.waitForTimeout(1000)
         return Number((await this.repositoriesCount.innerText()).trim())
     }

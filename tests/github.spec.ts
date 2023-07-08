@@ -23,24 +23,25 @@ test.describe.parallel('Github Test Suite', async () => {
     })
 
     test('Verify repositories equals expected amount', async () => {
-        const repoTabCount = await tabs.getNumberOfRepositories()
+        const repoTabCount: number = await tabs.getNumberOfRepositories()
         expect.soft(repoTabCount, "Repository counts matches expected value").toEqual(data.repositoryCount)
     })
 
     test(`Verify filtered ${data.filterLanguage} repositories count equals expected amount`, async () => {
         await repositories.filterByLanguage(data.filterLanguage)
-        const repositoriesCount = await repositories.getRepositoriesCardsCount()
+        const repositoriesCount: number = await repositories.getRepositoriesCardsCount()
         expect.soft(repositoriesCount, "Filtered repository counts matches expected value").toEqual(data.filteredRepositoryCount)
     })
 
     test('Sorted repositories alphabetically', async () => {
         await repositories.sortBy(data.sortBy)
-        expect.soft(isSortedAlphabetically(await repositories.getNames()), "Sorted by alphabetical order").toBe(true)
+        const repositoryNames: string[] = await repositories.getNames()
+        expect.soft(isSortedAlphabetically(repositoryNames), "Sorted by alphabetical order").toBe(true)
     })
 
     test('Select last respository in the list and verify https clone url', async () => {
         await repositories.sortBy(data.sortBy)
-        const repositoryName = await repositories.selectLastRepository()
+        const repositoryName: string = await repositories.selectLastRepository()
         const httpsCloneUrl = await repositoryPage.getHTTPSCloneUrl()
         expect.soft(httpsCloneUrl.includes(repositoryName), "HTTPS clone link matches repository clicked on").toBe(true)
     })

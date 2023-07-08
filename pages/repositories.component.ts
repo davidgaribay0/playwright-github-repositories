@@ -15,7 +15,7 @@ export class RepositoriesComponent {
         this.sortDropdownButton = page.getByRole('button', { name: 'Sort' })
     }
 
-    async getRepositoriesCardsCount() {
+    async getRepositoriesCardsCount(): Promise<number> {
         return await this.publicRepositories.count()
     }
 
@@ -23,14 +23,14 @@ export class RepositoriesComponent {
         await this.publicRepositories.nth(index).click()
     }
 
-    async selectLastRepository() {
+    async selectLastRepository(): Promise<string> {
         const repositoryName = this.publicRepositories.last().locator('//*[@data-hovercard-type="repository"]').innerText()
         await this.publicRepositories.last().locator('//*[@data-hovercard-type="repository"]').click()
         await this.page.waitForLoadState('networkidle')
         return repositoryName
     }
 
-    async getNames() {
+    async getNames(): Promise<string[]> {
         const names: string[] = []
         for await (const card of await this.publicRepositories.all()) {
             names.push(await card.locator('//*[@data-hovercard-type="repository"]').innerText())

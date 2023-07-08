@@ -11,7 +11,7 @@ export class RepositoryPage {
         this.httpsUrlInput = page.locator("//input[contains(@value, '.git')]")
     }
 
-    async getHTTPSCloneUrl() {
+    async getHTTPSCloneUrl(): Promise<string> {
         await this.codeDropdownButton.click()
         return (await this.httpsUrlInput.inputValue())
     }
