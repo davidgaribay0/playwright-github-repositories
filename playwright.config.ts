@@ -8,7 +8,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? undefined : 4,
-  reporter: [['html',], ['list', { printSteps: true }]],
+  reporter: [['html',], ['list', { printSteps: true }], ['./slackReporter.ts']],
   timeout: 8000,
   expect: { timeout: 4000 },
   use: {

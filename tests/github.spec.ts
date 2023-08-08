@@ -29,8 +29,8 @@ test.describe.parallel('Github Test Suite', async () => {
 
     test(`Verify filtered ${data.filterLanguage} repositories count equals expected amount`, async () => {
         await repositories.filterByLanguage(data.filterLanguage)
-        const repositoriesCount: number = await repositories.getRepositoriesCardsCount()
-        expect.soft(repositoriesCount, "Filtered repository counts matches expected value").toEqual(data.filteredRepositoryCount)
+        expect.poll(async () => { return await repositories.getRepositoriesCardsCount() }, { message: "Filtered repository counts matches expected value", timeout: 5000 })
+            .toEqual(data.filteredRepositoryCount)
     })
 
     test('Verify sorted repositories alphabetically', async () => {

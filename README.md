@@ -8,6 +8,7 @@
 - Clone the repo using the following command: `git clone https://github.com/davidgaribay0/playwright-github-repositories.git`
 - Navigate to folder using `cd playwright-github-repositories`
 - Install all dependencies `npm i`
+- Install playwright browsers/dependencies using `npx playwright install`
 - From the same folder you are in run the playwright tests using the command `CI=false npx playwright test`
 
 ## Options
